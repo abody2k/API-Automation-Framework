@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "allure-commandline": "^2.38.1",
+    "dotenv": "^17.4.1",
     "playwright": "^1.59.1"
   },
   "devDependencies": {
