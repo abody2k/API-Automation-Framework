@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","5686","get started link","firefox","2026-04-12","passed","2026-04-12","","example.spec.ts","",""
-"","3696","has title","firefox","2026-04-12","passed","2026-04-12","","example.spec.ts","",""
