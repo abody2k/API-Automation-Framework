@@ -1,11 +1,14 @@
 {
   "dependencies": {
     "allure-commandline": "^2.38.1",
-    "playwright": "^1.59.1"
+    "dotenv": "^17.4.1",
+    "playwright": "^1.59.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.6.0",
+    "allure-playwright": "^3.7.1"
   },
   "scripts": {}
 }
