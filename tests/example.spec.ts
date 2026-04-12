@@ -2,6 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test('has title', async ({ page }) => {
 
-  await expect(1+1).toBe(2);
+   expect(1+1).toBe(2);
 });
 
