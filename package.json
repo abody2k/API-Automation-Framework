@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "allure-commandline": "^2.38.1",
+    "playwright": "^1.59.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0"
+  },
+  "scripts": {}
+}
