@@ -6,7 +6,7 @@ import { loginSchema } from "../schemas/auth.schema";
  * @param username 
  * @param password 
  */
-export async function login({ username, password }: { username: string, password: string }) {
+export async function login({ username, password }: { username?: string, password?: string }) {
 
 
 

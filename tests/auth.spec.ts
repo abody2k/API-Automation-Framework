@@ -43,7 +43,16 @@ test.describe("Auth tests", () => {
 
 
 
+  test("Login without username and password", async ({ }) => {
 
+    let data = await login({ })
+
+    let schemaResult = loginSchema.safeParse(data)
+    console.log(data);
+    
+    expect(schemaResult.success).toBeFalsy();
+
+  })
 
 
 })
