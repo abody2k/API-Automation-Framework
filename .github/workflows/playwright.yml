@@ -10,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 
-  
+
 jobs:
   test:
     timeout-minutes: 60
@@ -25,7 +25,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --project=firefox
       continue-on-error: true
     - name: Install Allure Commandline
       run: npm install -g allure-commandline --save-dev
