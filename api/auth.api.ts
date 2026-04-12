@@ -6,9 +6,8 @@ import { loginSchema } from "../schemas/auth.schema";
  * @param username 
  * @param password 
  */
-export async function login(username: string, password: string) {
+export async function login({ username, password }: { username: string, password: string }) {
 
-    
 
 
     let context = await request.newContext({
@@ -26,7 +25,7 @@ export async function login(username: string, password: string) {
         }
     })).json();
 
-    console.log(loginSchema.safeParse(data).success);
+    return data;
 
 
 
