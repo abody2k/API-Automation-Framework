@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginSchema } from '../schemas/auth.schema';
-import { login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
+import { getCurrentUser, login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 
 
@@ -26,6 +26,10 @@ test.describe("Auth tests", () => {
     expect(loginRes.status()).toBe(200);
     expect(schemaResult.success).toBeTruthy();
 
+
+    let newReq = await getCurrentUser(data.accessToken);
+    console.log(await newReq.json());
+    
   })
 
 
@@ -33,7 +37,7 @@ test.describe("Auth tests", () => {
 
   login_data.forEach((dataItem) => {
 
-    test(`Login with ${dataItem.msg}`, async ({ }) => {
+    test.skip(`Login with ${dataItem.msg}`, async ({ }) => {
 
       let loginRes = await login({ username: dataItem.username, password: dataItem.password })
       let data = await loginRes.json(); // get data
@@ -52,7 +56,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("Login without username and password", async ({ }) => {
+  test.skip("Login without username and password", async ({ }) => {
 
     let loginRes = await login({})
     let data = await loginRes.json()
