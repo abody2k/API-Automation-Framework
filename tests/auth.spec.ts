@@ -72,7 +72,32 @@ test.describe("Auth tests", () => {
     let newData = await newReq.json()
     //expecting it to have a valid schema
     expect(getUserSchema.safeParse(newData).success).toBeTruthy()
+
+    if (getUserSchema.safeParse(newData).error) {
+      console.log(getUserSchema.safeParse(newData).error);
+
+    }
+
     expect(newReq.status()).toBe(200); // checking status code
+
+  })
+
+
+
+  test("get current user without passing a login token", async ({ }) => {
+
+    let newReq = await getCurrentUser();
+    let newData = await newReq.json()
+
+    expect(newData.message).toBe(RESPONSE_MSGS.ACCESS_TOKEN_REQUIRED)
+    expect(newReq.statusText()).toBe(RESPONSE_STATUS.UNAUTHORIZED)
+    //expecting it to have an invalid schema
+
+
+
+    expect(getUserSchema.safeParse(newData).success).toBeFalsy()
+
+    expect(newReq.status()).toBe(401); // checking status code
 
   })
 })

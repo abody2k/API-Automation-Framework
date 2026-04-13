@@ -2,85 +2,77 @@ import * as zod from "zod"
 
 export const loginSchema = zod.object({
 
-    accessToken: zod.string(),
-    refreshToken: zod.string(),
-    id: zod.number(),
-    username: zod.string(),
-    email: zod.email(),
-    firstName: zod.string(),
-    lastName: zod.string(),
-    gender: zod.string(),
-    image: zod.url()
+  accessToken: zod.string(),
+  refreshToken: zod.string(),
+  id: zod.number(),
+  username: zod.string(),
+  email: zod.email(),
+  firstName: zod.string(),
+  lastName: zod.string(),
+  gender: zod.string(),
+  image: zod.url()
 })
 
 
 
-export const getUserSchema = zod.json(`{
-  "id": 1,
-  "firstName": "Emily",
-  "lastName": "Johnson",
-  "maidenName": "Smith",
-  "age": 29,
-  "gender": "female",
-  "email": "emily.johnson@x.dummyjson.com",
-  "phone": "+81 965-431-3024",
-  "username": "emilys",
-  "password": "emilyspass",
-  "birthDate": "1996-5-30",
-  "image": "https://dummyjson.com/icon/emilys/128",
-  "bloodGroup": "O-",
-  "height": 193.24,
-  "weight": 63.16,
-  "eyeColor": "Green",
-  "hair": {
-    "color": "Brown",
-    "type": "Curly"
-  },
-  "ip": "42.48.100.32",
-  "address": {
-    "address": "626 Main Street",
-    "city": "Phoenix",
-    "state": "Mississippi",
-    "stateCode": "MS",
-    "postalCode": "29112",
-    "coordinates": {
-      "lat": -77.16213,
-      "lng": -92.084824
-    },
-    "country": "United States"
-  },
-  "macAddress": "47:fa:41:18:ec:eb",
-  "university": "University of Wisconsin--Madison",
-  "bank": {
-    "cardExpire": "05/28",
-    "cardNumber": "3693233511855044",
-    "cardType": "Diners Club International",
-    "currency": "GBP",
-    "iban": "GB74MH2UZLR9TRPHYNU8F8"
-  },
-  "company": {
-    "department": "Engineering",
-    "name": "Dooley, Kozey and Cronin",
-    "title": "Sales Manager",
-    "address": {
-      "address": "263 Tenth Street",
-      "city": "San Francisco",
-      "state": "Wisconsin",
-      "stateCode": "WI",
-      "postalCode": "37657",
-      "coordinates": [
-        null
-      ],
-      "country": "United States"
-    }
-  },
-  "ein": "977-175",
-  "ssn": "900-590-289",
-  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
-  "crypto": {
-    "coin": "Bitcoin",
-    "wallet": "0xb9fc2fe63b2a6c003f1c324c3bfa53259162181a",
-    "network": "Ethereum (ERC20)"
-  },
-  "role": "admin"
-}`)
+export const getUserSchema = zod.object({
+  id: zod.number(),
+  firstName: zod.string(),
+  lastName: zod.string(),
+  maidenName: zod.string(),
+  age: zod.number(),
+  gender: zod.string(),
+  email: zod.email(),
+  phone: zod.string(),
+  username: zod.string(),
+  password: zod.string(),
+  birthDate: zod.string(),
+  image: zod.url(),
+  bloodGroup: zod.string(),
+  height: zod.number(),
+  weight: zod.number(),
+  eyeColor: zod.string(),
+  hair: zod.object({ color: zod.string(), type: zod.string() }),
+  ip: zod.ipv4(),
+  address: zod.object({
+    address: zod.string(),
+    city: zod.string(),
+    state: zod.string(),
+    stateCode: zod.string(),
+    postalCode: zod.string(),
+    coordinates: zod.object({ lat: zod.number(), lng: zod.number() }),
+    country: zod.string()
+  }),
+  macAddress: zod.mac(),
+  university: zod.string(),
+  bank: zod.object({
+    cardExpire: zod.string(),
+    cardNumber: zod.string(),
+    cardType: zod.string(),
+    currency: zod.string(),
+    iban: zod.string()
+  }),
+  company: zod.object({
+    department: zod.string(),
+    name: zod.string(),
+    title: zod.string(),
+    address: zod.object({
+      address: zod.string(),
+      city: zod.string(),
+      state: zod.string(),
+      stateCode: zod.string(),
+      postalCode: zod.string(),
+      coordinates: zod.object(),
+      country: zod.string()
+    })
+  }),
+  ein: zod.string(),
+  ssn: zod.string(),
+  userAgent: zod.string(),
+  crypto: zod.object({
+    coin: zod.string(),
+    wallet: zod.string(),
+    network: zod.string()
+  }),
+  role: zod.string()
+})
