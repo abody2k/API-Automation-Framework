@@ -43,3 +43,15 @@ export async function getCurrentUser(token?: string) {
     return await client.get("/auth/me", { token: token })
 
 }
+
+
+
+
+export async function refreshAuthSession(token?: string) {
+
+    const client = await ApiClient.createClient();
+    client.post("/auth/refresh", {
+
+        refreshToken: token
+    })
+}
