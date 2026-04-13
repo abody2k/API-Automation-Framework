@@ -152,8 +152,7 @@ test.describe("Auth tests", () => {
     let refreshData = await refreshResponse.json();
 
     expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
-    console.log(refreshResponse.statusText());
-    console.log(refreshData);
+
 
     expect(refreshData.message).toBe(RESPONSE_MSGS.INVALID_REFRESH_TOKEN)
     expect(refreshResponse.status()).toBe(403);
