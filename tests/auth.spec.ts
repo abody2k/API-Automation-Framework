@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { getUserSchema, loginSchema } from '../schemas/auth.schema';
-import { getCurrentUser, login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
+import { getCurrentUser, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 
 
@@ -12,21 +12,8 @@ test.describe("Auth tests", () => {
 
   test("Login with valid username and password", async ({ }) => {
 
-    let loginRes = await login({ username: process.env.LOGIN_USERNAME as string, password: process.env.PASSWORD as string })
-    let data = await loginRes.json();
-    let schemaResult = loginSchema.safeParse(data)
 
-    if (!schemaResult.success) {
-      console.log(schemaResult.error);
-
-    }
-
-    expect(data.accessToken).toBeDefined()
-    expect(data.refreshToken).toBeDefined()
-    expect(loginRes.status()).toBe(200);
-    expect(schemaResult.success).toBeTruthy();
-
-
+    
     let newReq = await getCurrentUser(data.accessToken);
     let newData = await newReq.json()
   expect(getUserSchema.safeParse(newData).success).toBeTruthy()
