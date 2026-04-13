@@ -34,9 +34,25 @@ export class ApiClient {
 
         return await this.request.post(url, {
             data: data,
-            headers: options
+            headers: {
+
+                'Content-Type':"application/json",
+                ...options
+            }
 
         })
+
+    }
+
+
+    async get(url: string, options?: {token?:string}) {
+
+
+        return this.request.get(url, {headers: {
+
+                'Content-Type':"application/json",
+                ...(options?.token ? {'Authorization' : options.token}:{})
+            }})
 
     }
 }
