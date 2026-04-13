@@ -36,7 +36,7 @@ export class ApiClient {
             data: data,
             headers: {
 
-                'Content-Type':"application/json",
+                'Content-Type': "application/json",
                 ...options
             }
 
@@ -45,14 +45,28 @@ export class ApiClient {
     }
 
 
-    async get(url: string, options?: {token?:string}) {
+    async get(url: string, options?: { token?: string }) {
 
 
-        return this.request.get(url, {headers: {
+        return this.request.get(url, {
+            headers: {
 
-                'Content-Type':"application/json",
-                ...(options?.token ? {'Authorization' : options.token}:{})
-            }})
+                'Content-Type': "application/json",
+                ...(options?.token ? { 'Authorization': options.token } : {})
+            }
+        })
+
+    }
+
+
+    async delete(url: string) {
+
+
+        return this.request.delete(url, {
+            headers: {
+                'Content-Type': "application/json",
+            }
+        })
 
     }
 }
