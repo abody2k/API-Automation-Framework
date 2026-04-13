@@ -1,6 +1,7 @@
 import { request } from "playwright";
-import * as zod from 'zod'
-import { loginSchema } from "../schemas/auth.schema";
+
+
+
 /**
  * login function that takes username and password and returns a token
  * @param username 
