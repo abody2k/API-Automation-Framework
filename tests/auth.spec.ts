@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { loginSchema } from '../schemas/auth.schema';
+import { getUserSchema, loginSchema } from '../schemas/auth.schema';
 import { getCurrentUser, login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 
@@ -28,7 +28,8 @@ test.describe("Auth tests", () => {
 
 
     let newReq = await getCurrentUser(data.accessToken);
-    console.log(await newReq.json());
+    let newData = await newReq.json()
+  expect(getUserSchema.safeParse(newData).success).toBeTruthy()
     
   })
 
