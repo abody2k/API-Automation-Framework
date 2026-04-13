@@ -1,6 +1,5 @@
 import { APIRequestContext, request, Request } from "playwright";
 import { ur } from "zod/locales";
-import { process } from "zod/v4/core";
 
 export class ApiClient {
 
@@ -14,7 +13,7 @@ export class ApiClient {
         this.request = req
     }
 
-    async createClient() {
+    static async createClient() {
 
         return new ApiClient(await request.newContext({
 
@@ -24,10 +23,16 @@ export class ApiClient {
     }
 
 
+    /**
+     * 
+     * @param url the url to be appended after the base url *NOTE: DON'T ADD THE WHOLE HTTP:// link, just add the part after the domain*
+     * @param data 
+     * @param options 
+     * @returns 
+     */
+    async post(url: string, data: object, options?: {}) {
 
-    async post(url: string, data: object, options: {}) {
-
-        this.request.post(url, {
+        return await this.request.post(url, {
             data: data,
             headers: options
 
