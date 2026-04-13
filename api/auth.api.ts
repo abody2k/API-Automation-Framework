@@ -33,3 +33,11 @@ export async function login({ username, password, options }: { username?: string
 
 
 }
+
+
+export async function getCurrentUser(token: string) {
+
+    const client = await ApiClient.createClient();
+    return await client.get("/auth/me", { token: token })
+
+}
