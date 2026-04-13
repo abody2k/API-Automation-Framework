@@ -108,10 +108,7 @@ test.describe("Auth tests", () => {
 
   test("Refresh authentication session using a token", async () => {
 
-
-
     let loginData = await loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
-
 
     let refreshResponse = await refreshAuthSession(loginData.refreshToken)
 
@@ -127,5 +124,23 @@ test.describe("Auth tests", () => {
 
   })
 
+
+
+
+  test("Refresh authentication session without using a token", async () => {
+
+
+    let refreshResponse = await refreshAuthSession()
+
+    let refreshData = await refreshResponse.json();
+
+    expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
+
+    expect(refreshResponse.status()).toBe(401);
+    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.UNAUTHORIZED);
+
+
+
+  })
 
 })
