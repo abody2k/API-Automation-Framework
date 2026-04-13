@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getUserSchema, loginSchema } from '../schemas/auth.schema';
+import { getUserSchema, loginSchema, refreshTokenSchema } from '../schemas/auth.schema';
 import { getCurrentUser, login, refreshAuthSession, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 import { loginFlow } from '../flows/auth.flow';
@@ -104,6 +104,28 @@ test.describe("Auth tests", () => {
 
 
 
+
+
+  test("Refresh authentication session using a token", async () => {
+
+
+
+    let loginData = await loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
+
+
+    let refreshResponse = await refreshAuthSession(loginData.refreshToken)
+
+    let refreshData = await refreshResponse.json();
+
+    expect(refreshTokenSchema.safeParse(refreshData).success).toBeTruthy();
+
+    expect(refreshResponse.status()).toBe(200);
+    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.OK);
+    expect(refreshData.refreshToken).toBeDefined()
+    expect(refreshData.accessToken).toBeDefined()
+
+
+  })
 
 
 })
