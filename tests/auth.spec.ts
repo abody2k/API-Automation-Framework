@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginSchema } from '../schemas/auth.schema';
-import { login, RESPONSE_STATUS } from '../api/auth.api';
+import { login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 
 
@@ -20,6 +20,9 @@ test.describe("Auth tests", () => {
       console.log(schemaResult.error);
 
     }
+
+    expect(data.accessToken).toBeDefined()
+    expect(data.refreshToken).toBeDefined()
     expect(loginRes.status()).toBe(200);
     expect(schemaResult.success).toBeTruthy();
 
@@ -33,13 +36,16 @@ test.describe("Auth tests", () => {
     test(`Login with ${dataItem.msg}`, async ({ }) => {
 
       let loginRes = await login({ username: dataItem.username, password: dataItem.password })
-      let data = await loginRes.json();
-      let schemaResult = loginSchema.safeParse(data)
+      let data = await loginRes.json(); // get data
+      let schemaResult = loginSchema.safeParse(data) // check schema
 
-      expect(loginRes.status()).toBe(400);
-      expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
+      expect(loginRes.status()).toBe(400); // it has to fail, we are using faulty data
 
-      expect(schemaResult.success).toBeFalsy();
+      expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST) // checking if the status message is set correctly
+      expect(data.accessToken).toBeUndefined() //making sure it is not sending data back on invalid login
+      expect(data.refreshToken).toBeUndefined()
+      expect(data.message).toBe(dataItem.responseMsg) // check if body error message is set correctly
+      expect(schemaResult.success).toBeFalsy(); //checking the schema
     })
   })
 
@@ -53,7 +59,13 @@ test.describe("Auth tests", () => {
     let schemaResult = loginSchema.safeParse(data)
     expect(loginRes.status()).toBe(400);
     expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
+    console.log(data);
+    expect(data.message).toBe(RESPONSE_MSGS.USERNAME_AND_PASS_REQ)
+
+    expect(data.accessToken).toBeUndefined()
+    expect(data.refreshToken).toBeUndefined()
     expect(schemaResult.success).toBeFalsy();
+
 
   })
 
