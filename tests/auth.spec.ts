@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { getUserSchema, loginSchema } from '../schemas/auth.schema';
-import { getCurrentUser, login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
+import { getCurrentUser, login, refreshAuthSession, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 import { loginFlow } from '../flows/auth.flow';
+import process from 'process';
 
 
 test.describe("Auth tests", () => {
@@ -100,4 +101,9 @@ test.describe("Auth tests", () => {
     expect(newReq.status()).toBe(401); // checking status code
 
   })
+
+
+
+
+
 })

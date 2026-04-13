@@ -76,3 +76,11 @@ export const getUserSchema = zod.object({
   }),
   role: zod.string()
 })
+
+
+export const refreshTokenSchema = zod.object({
+
+
+  refreshToken: zod.string(),
+  accessToken: zod.string()
+})
