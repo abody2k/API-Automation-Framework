@@ -5,7 +5,8 @@ import { ApiClient } from "./client/apiClient";
 export enum RESPONSE_STATUS {
 
     BAD_REQUEST = "Bad Request",
-    UNAUTHORIZED = "Unauthorized"
+    UNAUTHORIZED = "Unauthorized",
+    OK="OK",
 
 }
 
