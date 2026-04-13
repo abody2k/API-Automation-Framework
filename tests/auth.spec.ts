@@ -135,12 +135,33 @@ test.describe("Auth tests", () => {
     let refreshData = await refreshResponse.json();
 
     expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
-
+    expect(refreshData.message).toBe(RESPONSE_MSGS.REFRESH_TOKEN_REQUIRED)
     expect(refreshResponse.status()).toBe(401);
     expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.UNAUTHORIZED);
 
 
 
   })
+
+
+    test("Refresh authentication session with an invalid token", async () => {
+
+
+    let refreshResponse = await refreshAuthSession("kjnsdkjcnsdjkcndncjnkjsn")
+
+    let refreshData = await refreshResponse.json();
+
+    expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
+      console.log(refreshResponse.statusText());
+      console.log(refreshData);
+      
+      
+    expect(refreshResponse.status()).toBe(403);
+    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.UNAUTHORIZED);
+
+
+
+  })
+
 
 })
