@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { getUserSchema, loginSchema } from '../schemas/auth.schema';
-import { getCurrentUser, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
+import { getCurrentUser, login, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 import { loginFlow } from '../flows/auth.flow';
 
@@ -50,7 +50,6 @@ test.describe("Auth tests", () => {
     let schemaResult = loginSchema.safeParse(data)
     expect(loginRes.status()).toBe(400);
     expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
-    console.log(data);
     expect(data.message).toBe(RESPONSE_MSGS.USERNAME_AND_PASS_REQ)
 
     expect(data.accessToken).toBeUndefined()
@@ -61,4 +60,19 @@ test.describe("Auth tests", () => {
   })
 
 
+
+
+
+  test("get current user using valid login token", async ({ }) => {
+
+    //Get the data from the API call
+    let data = await loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
+    //Make get current user API request using the token we got from login flow
+    let newReq = await getCurrentUser(data.accessToken);
+    let newData = await newReq.json()
+    //expecting it to have a valid schema
+    expect(getUserSchema.safeParse(newData).success).toBeTruthy()
+    expect(newReq.status()).toBe(200); // checking status code
+
+  })
 })
