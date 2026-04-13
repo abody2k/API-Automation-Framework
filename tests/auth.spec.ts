@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { getUserSchema, loginSchema } from '../schemas/auth.schema';
 import { getCurrentUser, RESPONSE_MSGS, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
+import { loginFlow } from '../flows/auth.flow';
 
 
 test.describe("Auth tests", () => {
@@ -13,11 +14,9 @@ test.describe("Auth tests", () => {
   test("Login with valid username and password", async ({ }) => {
 
 
-    
-    let newReq = await getCurrentUser(data.accessToken);
-    let newData = await newReq.json()
-  expect(getUserSchema.safeParse(newData).success).toBeTruthy()
-    
+    loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
+
+
   })
 
 
@@ -25,7 +24,7 @@ test.describe("Auth tests", () => {
 
   login_data.forEach((dataItem) => {
 
-    test.skip(`Login with ${dataItem.msg}`, async ({ }) => {
+    test(`Login with ${dataItem.msg}`, async ({ }) => {
 
       let loginRes = await login({ username: dataItem.username, password: dataItem.password })
       let data = await loginRes.json(); // get data
@@ -44,7 +43,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test.skip("Login without username and password", async ({ }) => {
+  test("Login without username and password", async ({ }) => {
 
     let loginRes = await login({})
     let data = await loginRes.json()
