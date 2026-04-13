@@ -1,7 +1,11 @@
-import { request } from "playwright";
 import { ApiClient } from "./client/apiClient";
 
 
+
+export enum RESPONSE_STATUS{
+
+    BAD_REQUEST="Bad Request"
+}
 
 /**
  * login function that takes username and password and returns a token

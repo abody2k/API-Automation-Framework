@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginSchema } from '../schemas/auth.schema';
-import { login } from '../api/auth.api';
+import { login, RESPONSE_STATUS } from '../api/auth.api';
 import { login_data } from '../data/auth_sample.data';
 
 
@@ -12,14 +12,15 @@ test.describe("Auth tests", () => {
 
   test("Login with valid username and password", async ({ }) => {
 
-    let data = await login({ username: process.env.LOGIN_USERNAME as string, password: process.env.PASSWORD as string })
-
+    let loginRes = await login({ username: process.env.LOGIN_USERNAME as string, password: process.env.PASSWORD as string })
+    let data = await loginRes.json();
     let schemaResult = loginSchema.safeParse(data)
 
     if (!schemaResult.success) {
       console.log(schemaResult.error);
 
     }
+    expect(loginRes.status()).toBe(200);
     expect(schemaResult.success).toBeTruthy();
 
   })
@@ -31,10 +32,12 @@ test.describe("Auth tests", () => {
 
     test(`Login with ${dataItem.msg}`, async ({ }) => {
 
-      let data = await login({ username: dataItem.username, password: dataItem.password })
-
+      let loginRes = await login({ username: dataItem.username, password: dataItem.password })
+      let data = await loginRes.json();
       let schemaResult = loginSchema.safeParse(data)
 
+      expect(loginRes.status()).toBe(400);
+      expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
 
       expect(schemaResult.success).toBeFalsy();
     })
@@ -45,11 +48,11 @@ test.describe("Auth tests", () => {
 
   test("Login without username and password", async ({ }) => {
 
-    let data = await login({ })
-
+    let loginRes = await login({})
+    let data = await loginRes.json()
     let schemaResult = loginSchema.safeParse(data)
-    console.log(data);
-    
+    expect(loginRes.status()).toBe(400);
+    expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
     expect(schemaResult.success).toBeFalsy();
 
   })
