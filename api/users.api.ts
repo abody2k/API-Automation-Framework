@@ -128,6 +128,14 @@ export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc")
 
     let client = await ApiClient.createClient()
 
-    return await client.get(`/users/sortBy?sortBy=${sortBy}${order ? `&order=${order}`: ""} `)
+    return await client.get(`/users?sortBy=${sortBy}${order ? `&order=${order}` : ""} `)
+
+}
+
+export async function limitAndSkipUsers(limit?: number, skip?: number, select?: []) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users?limit=${limit}&skip=${skip}&select=${select?.length! > 0 ? `${select?.join(",")}` : ""} `)
 
 }
