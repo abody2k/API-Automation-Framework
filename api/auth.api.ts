@@ -18,7 +18,8 @@ export enum RESPONSE_MSGS {
     INVALID_CRED = "Invalid credentials",
     ACCESS_TOKEN_REQUIRED = "Access Token is required",
     REFRESH_TOKEN_REQUIRED = "Refresh token required",
-    INVALID_REFRESH_TOKEN = "Invalid refresh token"
+    INVALID_REFRESH_TOKEN = "Invalid refresh token",
+    INVALID_LIMIT = `Invalid 'limit' - must be a number`
 }
 
 /**
