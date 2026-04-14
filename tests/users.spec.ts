@@ -1,5 +1,5 @@
 import test, { expect } from "playwright/test";
-import { addNewUser, deleteUser, getUserTodos, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, getAllUsers, getUserTodos, updateUser } from "../api/users.api";
 import { RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 
@@ -138,5 +138,14 @@ test.describe("Users related tests", () => {
 
 
 
+
+
+    test("Get all users", async () => {
+
+        let res = await getAllUsers();
+
+
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+    })
 
 })
