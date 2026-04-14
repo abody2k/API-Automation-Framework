@@ -158,4 +158,17 @@ test.describe("Users related tests", () => {
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK, schema: loginSchema })
     })
 
+
+
+    test("Login with invalid credentials", async () => {
+
+        let res = await login({ username: process.env.LOGIN_USERNAME, password: "Wrong password" });
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST})
+    })
+
+
+
+
 })
