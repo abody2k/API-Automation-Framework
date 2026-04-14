@@ -88,7 +88,6 @@ test.describe("Users related tests", () => {
             firstName: "Kong",
             lastName: ""
         })
-        console.log(await res.json());
 
         await checkResponse({ response: res, statusCode: 201, statusText: RESPONSE_STATUS.CREATED })
     })
@@ -98,6 +97,23 @@ test.describe("Users related tests", () => {
     test.skip("Adding a new user without passing any data", { annotation: { type: "Negative case", description: "It should not be ok to create a user without sending any data" } }, async () => {
 
         let res = await addNewUser()
+
+
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
+    })
+
+
+
+
+    test("Adding a new user while passing invalid fields", { annotation: { type: "Negative case", description: "It should not be ok create a user with fields that does not fit the schema" } }, async () => {
+
+        let res = await addNewUser({
+
+            lifeSpands: 777,
+            luckyNumber: 7
+        })
         console.log(await res.json());
 
 
