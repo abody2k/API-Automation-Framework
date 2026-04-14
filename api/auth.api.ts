@@ -7,7 +7,8 @@ export enum RESPONSE_STATUS {
     BAD_REQUEST = "Bad Request",
     UNAUTHORIZED = "Unauthorized",
     OK="OK",
-    FORBIDDEN="Forbidden"
+    FORBIDDEN="Forbidden",
+    NOT_FOUND="Not Found"
 
 }
 

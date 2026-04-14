@@ -69,4 +69,20 @@ export class ApiClient {
         })
 
     }
+
+    async put(url: string, data?: object, options?: object) {
+
+
+
+        return await this.request.put(url, {
+            data: data,
+            headers: {
+
+                'Content-Type': "application/json",
+                ...options
+            }
+
+        })
+
+    }
 }
