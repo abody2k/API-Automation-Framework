@@ -12,7 +12,7 @@ export async function deleteUser(userID?: string) {
 
 
 
-export async function updateUser(userID: number, updatedFields?: object) {
+export async function updateUser(userID: string, updatedFields?: object) {
 
     let client = await ApiClient.createClient()
 

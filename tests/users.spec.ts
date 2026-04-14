@@ -39,17 +39,19 @@ test.describe("Users related tests", () => {
 
     test("Updating a user's info using their ID", async () => {
 
-
-
-
-        let res = await updateUser(1, {
-
-
-            firstName: "Anderson"
-        })
+        let res = await updateUser("1", { firstName: "Anderson" })
 
 
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+    })
 
+
+
+    test("Updating a user's info using invalid ID", async () => {
+
+        let res = await updateUser("1xd23", { firstName: "Anderson" })
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
     })
 })
