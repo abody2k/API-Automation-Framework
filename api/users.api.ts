@@ -9,3 +9,13 @@ export async function deleteUser(userID?: string) {
     return await client.delete(`/users/${userID}`)
 
 }
+
+
+
+export async function updateUser(userID: string, updatedFields?: object) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.put(`/users/${userID}`, updatedFields)
+
+}

@@ -70,7 +70,7 @@ export class ApiClient {
 
     }
 
-    async put(url: string, data: object, options?: object) {
+    async put(url: string, data?: object, options?: object) {
 
 
 
