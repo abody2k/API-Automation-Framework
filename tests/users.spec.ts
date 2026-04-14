@@ -222,4 +222,13 @@ test.describe("Users related tests", () => {
 
     })
 
+
+        test("Search for a user without passing a name", async () => {
+        let res = await searchForUser();
+
+        console.log(await res.json());
+
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK, schema: searchForUserSchema })
+
+    })
 })
