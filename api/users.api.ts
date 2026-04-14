@@ -100,3 +100,15 @@ export async function filterUsers(options?: { key: string, value: string }) {
     return await client.get(`/users/filter?${search}`)
 
 }
+
+
+
+
+
+export async function getUserposts(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/posts`)
+
+}
