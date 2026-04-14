@@ -22,7 +22,7 @@ export async function updateUser({ userID, updatedFields }: { userID?: string, u
 
 
 
-export async function addNewUser({ userData }: {  userData?: object }) {
+export async function addNewUser(userData?: object) {
 
     let client = await ApiClient.createClient()
 

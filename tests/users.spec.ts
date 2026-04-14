@@ -83,13 +83,26 @@ test.describe("Users related tests", () => {
 
     test("Adding a new user", async () => {
 
-        let res = await addNewUser({ userData: {
+        let res = await addNewUser({
 
-            firstName:"",
-            lastName:""
-        } })
-
+            firstName: "Kong",
+            lastName: ""
+        })
+        console.log(await res.json());
 
         await checkResponse({ response: res, statusCode: 201, statusText: RESPONSE_STATUS.CREATED })
+    })
+
+
+
+    test.skip("Adding a new user without passing any data", { annotation: { type: "Negative case", description: "It should not be ok to create a user without sending any data" } }, async () => {
+
+        let res = await addNewUser()
+        console.log(await res.json());
+
+
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
     })
 })
