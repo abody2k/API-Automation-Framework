@@ -13,7 +13,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test.skip("Deleting a user using their ID", async () => {
+    test("Deleting a user using their ID", async () => {
 
 
 
