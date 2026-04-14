@@ -29,3 +29,13 @@ export async function addNewUser(userData?: object) {
     return await client.post(`/users/add`, userData)
 
 }
+
+
+
+export async function getUserTodos(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/todos`)
+
+}
