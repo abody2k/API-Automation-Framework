@@ -4,6 +4,8 @@ import { login, RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 import { loginSchema } from "../schemas/auth.schema";
 
+import { login as apiLogin } from "../api/users.api";
+
 test.describe("Users related tests", () => {
 
 
@@ -153,7 +155,7 @@ test.describe("Users related tests", () => {
 
     test("Login with valid credentials", async () => {
 
-        let res = await login({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD });
+        let res = await apiLogin({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD });
 
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK, schema: loginSchema })
     })
@@ -162,13 +164,22 @@ test.describe("Users related tests", () => {
 
     test("Login with invalid credentials", async () => {
 
-        let res = await login({ username: process.env.LOGIN_USERNAME, password: "Wrong password" });
+        let res = await apiLogin({ username: process.env.LOGIN_USERNAME, password: "Wrong password" });
 
 
-        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST})
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
     })
 
 
+
+
+    test("Login without credentials", async () => {
+
+        let res = await apiLogin();
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
+    })
 
 
 })

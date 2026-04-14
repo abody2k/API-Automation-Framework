@@ -52,10 +52,10 @@ export async function getAllUsers() {
 
 
 
-export async function login({ username, password, expiresInMins }: { username: string, password: string, expiresInMins?: number }) {
+export async function login(obj?: { username: string, password: string, expiresInMins?: number }) {
 
 
     let client = await ApiClient.createClient()
 
-    return await client.post(`/users/login`, { username: username, password: password, expiresInMins: expiresInMins })
+    return await client.post(`/users/login`, { username: obj?.username, password: obj?.password, expiresInMins: obj?.expiresInMins })
 }
