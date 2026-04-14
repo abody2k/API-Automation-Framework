@@ -88,3 +88,15 @@ export async function searchForUser(userName?: string) {
     return await client.get(`/users/search?q=${userName}`)
 
 }
+
+
+export async function filterUsers(options?: { key: string, value: string }) {
+
+    let client = await ApiClient.createClient()
+    let search = "";
+    if (options) {
+        search += `key=${options.key}&value=${options.value}`
+    }
+    return await client.get(`/users/filter?${search}`)
+
+}
