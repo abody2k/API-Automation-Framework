@@ -141,7 +141,13 @@ test.describe("Users related tests", () => {
     })
 
 
+    test("Get a user todos using without sending ID", async () => {
 
+        let res = await getUserTodos();
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
+    })
 
 
 
