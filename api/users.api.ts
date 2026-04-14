@@ -79,3 +79,12 @@ export async function getUser(userID?: string) {
     return await client.get(`/users/${userID}`)
 
 }
+
+
+export async function searchForUser(userName?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/search?q=${userName}`)
+
+}
