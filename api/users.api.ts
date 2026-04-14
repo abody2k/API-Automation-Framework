@@ -19,3 +19,123 @@ export async function updateUser({ userID, updatedFields }: { userID?: string, u
     return await client.put(`/users/${userID}`, updatedFields)
 
 }
+
+
+
+export async function addNewUser(userData?: object) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.post(`/users/add`, userData)
+
+}
+
+
+
+export async function getUserTodos(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/todos`)
+
+}
+
+
+
+export async function getAllUsers() {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users`)
+
+}
+
+
+
+export async function login(obj?: { username: string, password: string, expiresInMins?: number }) {
+
+
+    let client = await ApiClient.createClient()
+
+    return await client.post(`/users/login`, { username: obj?.username, password: obj?.password, expiresInMins: obj?.expiresInMins })
+}
+
+
+
+export async function getCurrentAuthenticatedUser(token: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/me`, { token })
+
+}
+
+
+
+export async function getUser(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}`)
+
+}
+
+
+export async function searchForUser(userName?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/search?q=${userName}`)
+
+}
+
+
+export async function filterUsers(options?: { key: string, value: string }) {
+
+    let client = await ApiClient.createClient()
+    let search = "";
+    if (options) {
+        search += `key=${options.key}&value=${options.value}`
+    }
+    return await client.get(`/users/filter?${search}`)
+
+}
+
+
+
+
+
+export async function getUserPosts(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/posts`)
+
+}
+
+
+export async function getUserCarts(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/carts`)
+
+}
+
+
+
+export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc") {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users?sortBy=${sortBy}${order ? `&order=${order}` : ""} `)
+
+}
+
+export async function limitAndSkipUsers(limit?: number, skip?: number, select?: (string)[]) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users?limit=${limit}&skip=${skip}&select=${select?.length! > 0 ? `${select?.join(",")}` : ""} `)
+
+}

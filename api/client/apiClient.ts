@@ -30,7 +30,7 @@ export class ApiClient {
      * @param options 
      * @returns 
      */
-    async post(url: string, data: object, options?: {}) {
+    async post(url: string, data?: object, options?: {}) {
 
         return await this.request.post(url, {
             data: data,

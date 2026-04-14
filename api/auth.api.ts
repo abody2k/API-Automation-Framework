@@ -6,9 +6,10 @@ export enum RESPONSE_STATUS {
 
     BAD_REQUEST = "Bad Request",
     UNAUTHORIZED = "Unauthorized",
-    OK="OK",
-    FORBIDDEN="Forbidden",
-    NOT_FOUND="Not Found"
+    OK = "OK",
+    FORBIDDEN = "Forbidden",
+    NOT_FOUND = "Not Found",
+    CREATED = "Created"
 
 }
 
@@ -16,8 +17,9 @@ export enum RESPONSE_MSGS {
     USERNAME_AND_PASS_REQ = "Username and password required",
     INVALID_CRED = "Invalid credentials",
     ACCESS_TOKEN_REQUIRED = "Access Token is required",
-    REFRESH_TOKEN_REQUIRED="Refresh token required",
-    INVALID_REFRESH_TOKEN="Invalid refresh token"
+    REFRESH_TOKEN_REQUIRED = "Refresh token required",
+    INVALID_REFRESH_TOKEN = "Invalid refresh token",
+    INVALID_LIMIT = `Invalid 'limit' - must be a number`
 }
 
 /**
