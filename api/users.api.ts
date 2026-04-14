@@ -121,3 +121,13 @@ export async function getUserCarts(userID?: string) {
     return await client.get(`/users/${userID}/carts`)
 
 }
+
+
+
+export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc") {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/sortBy?sortBy=${sortBy}${order ? `&order=${order}`: ""} `)
+
+}
