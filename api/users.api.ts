@@ -132,7 +132,7 @@ export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc")
 
 }
 
-export async function limitAndSkipUsers(limit?: number, skip?: number, select?: []) {
+export async function limitAndSkipUsers(limit?: number, skip?: number, select?: (string)[]) {
 
     let client = await ApiClient.createClient()
 

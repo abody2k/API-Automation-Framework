@@ -1,5 +1,5 @@
 import test, { expect } from "playwright/test";
-import { addNewUser, deleteUser, filterUsers, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserCarts, getUserPosts, getUserTodos, searchForUser, sortAndOrderUsers, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, filterUsers, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserCarts, getUserPosts, getUserTodos, limitAndSkipUsers, searchForUser, sortAndOrderUsers, updateUser } from "../api/users.api";
 import { login, RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 import { loginSchema } from "../schemas/auth.schema";
@@ -292,4 +292,13 @@ test.describe("Users related tests", () => {
     })
 
 
+
+
+    test("Limit and skip users", async () => {
+
+        let res = await limitAndSkipUsers(10,10,["firstName","lastName"]);
+        console.log(await res.json());
+
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+    })
 })
