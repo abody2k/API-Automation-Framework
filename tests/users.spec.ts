@@ -12,7 +12,6 @@ test.describe("Users related tests", () => {
 
 
         let req = await deleteUser("1")
-        let data = await req.json()
         expect(req.status()).toBe(200)
         expect(req.statusText()).toBe(RESPONSE_STATUS.OK);
 
