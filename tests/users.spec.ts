@@ -1,6 +1,7 @@
 import test, { expect } from "playwright/test";
 import { deleteUser } from "../api/users.api";
 import { RESPONSE_STATUS } from "../api/auth.api";
+import { checkResponse } from "../assertions/api.assrtion";
 
 test.describe("Users related tests", () => {
 
@@ -12,8 +13,8 @@ test.describe("Users related tests", () => {
 
 
         let req = await deleteUser("1")
-        expect(req.status()).toBe(200)
-        expect(req.statusText()).toBe(RESPONSE_STATUS.OK);
+        checkResponse({ response: req, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+
 
 
     })

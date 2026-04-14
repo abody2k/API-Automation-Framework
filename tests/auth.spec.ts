@@ -4,6 +4,7 @@ import { getCurrentUser, login, refreshAuthSession, RESPONSE_MSGS, RESPONSE_STAT
 import { login_data } from '../data/auth_sample.data';
 import { loginFlow } from '../flows/auth.flow';
 import process from 'process';
+import { checkResponse } from '../assertions/api.assrtion';
 
 
 test.describe("Auth tests", () => {
@@ -31,12 +32,10 @@ test.describe("Auth tests", () => {
       let data = await loginRes.json(); // get data
       let schemaResult = loginSchema.safeParse(data) // check schema
 
-      expect(loginRes.status()).toBe(400); // it has to fail, we are using faulty data
+      await checkResponse({ statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST, message: dataItem.responseMsg, response: loginRes })
 
-      expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST) // checking if the status message is set correctly
       expect(data.accessToken).toBeUndefined() //making sure it is not sending data back on invalid login
       expect(data.refreshToken).toBeUndefined()
-      expect(data.message).toBe(dataItem.responseMsg) // check if body error message is set correctly
       expect(schemaResult.success).toBeFalsy(); //checking the schema
     })
   })
@@ -49,10 +48,7 @@ test.describe("Auth tests", () => {
     let loginRes = await login({})
     let data = await loginRes.json()
     let schemaResult = loginSchema.safeParse(data)
-    expect(loginRes.status()).toBe(400);
-    expect(loginRes.statusText()).toBe(RESPONSE_STATUS.BAD_REQUEST)
-    expect(data.message).toBe(RESPONSE_MSGS.USERNAME_AND_PASS_REQ)
-
+    checkResponse({ response: loginRes, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST, message: RESPONSE_MSGS.USERNAME_AND_PASS_REQ })
     expect(data.accessToken).toBeUndefined()
     expect(data.refreshToken).toBeUndefined()
     expect(schemaResult.success).toBeFalsy();
@@ -114,10 +110,8 @@ test.describe("Auth tests", () => {
 
     let refreshData = await refreshResponse.json();
 
-    expect(refreshTokenSchema.safeParse(refreshData).success).toBeTruthy();
 
-    expect(refreshResponse.status()).toBe(200);
-    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.OK);
+    await checkResponse({ statusCode: 200, statusText: RESPONSE_STATUS.OK, response: refreshResponse, schema: refreshTokenSchema })
     expect(refreshData.refreshToken).toBeDefined()
     expect(refreshData.accessToken).toBeDefined()
 
@@ -134,10 +128,10 @@ test.describe("Auth tests", () => {
 
     let refreshData = await refreshResponse.json();
 
+
+    await checkResponse({ response: refreshResponse, message: RESPONSE_MSGS.REFRESH_TOKEN_REQUIRED, statusCode: 401, statusText: RESPONSE_STATUS.UNAUTHORIZED })
     expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
-    expect(refreshData.message).toBe(RESPONSE_MSGS.REFRESH_TOKEN_REQUIRED)
-    expect(refreshResponse.status()).toBe(401);
-    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.UNAUTHORIZED);
+
 
 
 
@@ -153,12 +147,7 @@ test.describe("Auth tests", () => {
 
     expect(refreshTokenSchema.safeParse(refreshData).success).toBeFalsy();
 
-
-    expect(refreshData.message).toBe(RESPONSE_MSGS.INVALID_REFRESH_TOKEN)
-    expect(refreshResponse.status()).toBe(403);
-    expect(refreshResponse.statusText()).toBe(RESPONSE_STATUS.FORBIDDEN);
-
-
+    await checkResponse({ response: refreshResponse, message: RESPONSE_MSGS.INVALID_REFRESH_TOKEN, statusCode: 403, statusText: RESPONSE_STATUS.FORBIDDEN })
 
   })
 

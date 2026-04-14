@@ -1,10 +1,14 @@
 import { APIResponse } from "playwright";
 import { expect } from "playwright/test";
+import { ZodObject } from "zod";
 
 
 
-export async function checkResponse({ statusCode, statusText, message, response }: { statusCode?: number, statusText?: string, message?: string, response: APIResponse }) {
+export async function checkResponse({ statusCode, statusText, message, response, schema }: { statusCode?: number, statusText?: string, message?: string, schema?: ZodObject, response: APIResponse }) {
 
+
+
+    let data = (await response.json());
 
     if (statusCode) {
 
@@ -17,8 +21,15 @@ export async function checkResponse({ statusCode, statusText, message, response 
     }
     if (message) {
 
-        expect((await response.json()).message).toBe(message)
+        expect(data.message).toBe(message)
     }
+
+    if (schema) {
+
+        expect(schema.safeParse(data).success).toBeTruthy();
+
+    }
+
 
 
 }
