@@ -49,3 +49,13 @@ export async function getAllUsers() {
     return await client.get(`/users`)
 
 }
+
+
+
+export async function login({ username, password, expiresInMins }: { username: string, password: string, expiresInMins?: number }) {
+
+
+    let client = await ApiClient.createClient()
+
+    return await client.post(`/users/login`, { username: username, password: password, expiresInMins: expiresInMins })
+}
