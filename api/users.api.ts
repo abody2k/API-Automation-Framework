@@ -39,3 +39,13 @@ export async function getUserTodos(userID?: string) {
     return await client.get(`/users/${userID}/todos`)
 
 }
+
+
+
+export async function getAllUsers() {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users`)
+
+}
