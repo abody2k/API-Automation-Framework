@@ -105,10 +105,19 @@ export async function filterUsers(options?: { key: string, value: string }) {
 
 
 
-export async function getUserposts(userID?: string) {
+export async function getUserPosts(userID?: string) {
 
     let client = await ApiClient.createClient()
 
     return await client.get(`/users/${userID}/posts`)
+
+}
+
+
+export async function getUserCarts(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}/carts`)
 
 }
