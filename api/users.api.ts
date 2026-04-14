@@ -69,3 +69,13 @@ export async function getCurrentAuthenticatedUser(token: string) {
     return await client.get(`/users/me`, { token })
 
 }
+
+
+
+export async function getUser(userID?: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/${userID}`)
+
+}
