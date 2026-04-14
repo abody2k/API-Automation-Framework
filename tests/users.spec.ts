@@ -1,5 +1,5 @@
 import test, { expect } from "playwright/test";
-import { addNewUser, deleteUser, filterUsers, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserPosts, getUserTodos, searchForUser, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, filterUsers, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserCarts, getUserPosts, getUserTodos, searchForUser, sortAndOrderUsers, updateUser } from "../api/users.api";
 import { login, RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 import { loginSchema } from "../schemas/auth.schema";
@@ -244,11 +244,11 @@ test.describe("Users related tests", () => {
 
         let res = await getUserPosts("1");
 
-        console.log(await res.json());
+        // console.log(await res.json());
 
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
     })
-    
+
     test("Get a user posts using without ID", async () => {
 
         let res = await getUserPosts();
@@ -267,12 +267,29 @@ test.describe("Users related tests", () => {
     })
 
 
-    test("Get a user todos using without sending ID", async () => {
+    test("Get a user todos without sending ID", async () => {
 
         let res = await getUserTodos();
 
 
         await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
     })
+
+
+    test("Get a user carts by ID", async () => {
+
+        let res = await getUserCarts("1");
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+    })
+
+
+    test("Sort and order users by firstname", async () => {
+
+        let res = await sortAndOrderUsers("firstName");
+        // console.log(await res.json());
+
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+    })
+
 
 })
