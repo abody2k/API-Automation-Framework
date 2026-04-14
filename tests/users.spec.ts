@@ -67,4 +67,11 @@ test.describe("Users related tests", () => {
 
 
 
+    test("Updating a user's info by only sending ID without sending data", { annotation: { type: "edge", description: "Trying to update a user with missing fields to be updated should be flagged as bad request" } }, async () => {
+
+        let res = await updateUser({ userID: "1" })
+
+
+        await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
+    })
 })
