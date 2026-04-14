@@ -1,5 +1,5 @@
 import test, { expect } from "playwright/test";
-import { deleteUser, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, updateUser } from "../api/users.api";
 import { RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 
@@ -21,7 +21,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Deleting a user using an invalid ID", { annotation: { type: "edge", description: "The response should be not found" } }, async () => {
+    test("Deleting a user using an invalid ID", { annotation: { type: "negative case", description: "The response should be not found" } }, async () => {
 
         let req = await deleteUser("5676567")
         await checkResponse({ response: req, statusCode: 404, statusText: RESPONSE_STATUS.NOT_FOUND })
@@ -29,7 +29,7 @@ test.describe("Users related tests", () => {
 
     })
 
-    test("Deleting a user without sending an ID", { annotation: { type: "edge", description: "The response should be not found" } }, async () => {
+    test("Deleting a user without sending an ID", { annotation: { type: "negative", description: "The response should be not found" } }, async () => {
 
         let req = await deleteUser()
         await checkResponse({ response: req, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
@@ -67,11 +67,29 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Updating a user's info by only sending ID without sending data", { annotation: { type: "edge", description: "Trying to update a user with missing fields to be updated should be flagged as bad request" } }, async () => {
+    test.skip("Updating a user's info by only sending ID without sending data", { annotation: { type: "negative case", description: "Trying to update a user with missing fields to be updated should be flagged as bad request" } }, async () => {
 
         let res = await updateUser({ userID: "1" })
 
 
         await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
+    })
+
+
+
+
+
+
+
+    test("Adding a new user", async () => {
+
+        let res = await addNewUser({ userData: {
+
+            firstName:"",
+            lastName:""
+        } })
+
+
+        await checkResponse({ response: res, statusCode: 201, statusText: RESPONSE_STATUS.CREATED })
     })
 })

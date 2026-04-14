@@ -19,3 +19,13 @@ export async function updateUser({ userID, updatedFields }: { userID?: string, u
     return await client.put(`/users/${userID}`, updatedFields)
 
 }
+
+
+
+export async function addNewUser({ userData }: {  userData?: object }) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.post(`/users/add`, userData)
+
+}
