@@ -6,6 +6,7 @@ import { loginSchema } from "../schemas/auth.schema";
 
 import { login as apiLogin } from "../api/users.api";
 import process from "process";
+import { searchForUserSchema } from "../schemas/users.schema";
 
 test.describe("Users related tests", () => {
 
@@ -217,7 +218,7 @@ test.describe("Users related tests", () => {
 
         console.log(await res.json());
 
-        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK, schema: searchForUserSchema })
 
     })
 
