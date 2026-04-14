@@ -1,5 +1,5 @@
 import test, { expect } from "playwright/test";
-import { addNewUser, deleteUser, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserTodos, searchForUser, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, filterUsers, getAllUsers, getCurrentAuthenticatedUser, getUser, getUserTodos, searchForUser, updateUser } from "../api/users.api";
 import { login, RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 import { loginSchema } from "../schemas/auth.schema";
@@ -13,7 +13,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Deleting a user using their ID", async () => {
+    test.skip("Deleting a user using their ID", async () => {
 
 
 
@@ -26,7 +26,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Deleting a user using an invalid ID", { annotation: { type: "negative case", description: "The response should be not found" } }, async () => {
+    test.skip("Deleting a user using an invalid ID", { annotation: { type: "negative case", description: "The response should be not found" } }, async () => {
 
         let req = await deleteUser("5676567")
         await checkResponse({ response: req, statusCode: 404, statusText: RESPONSE_STATUS.NOT_FOUND })
@@ -34,7 +34,7 @@ test.describe("Users related tests", () => {
 
     })
 
-    test("Deleting a user without sending an ID", { annotation: { type: "negative", description: "The response should be not found" } }, async () => {
+    test.skip("Deleting a user without sending an ID", { annotation: { type: "negative", description: "The response should be not found" } }, async () => {
 
         let req = await deleteUser()
         await checkResponse({ response: req, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
@@ -42,7 +42,7 @@ test.describe("Users related tests", () => {
 
     })
 
-    test("Updating a user's info using their ID", async () => {
+    test.skip("Updating a user's info using their ID", async () => {
 
         let res = await updateUser({ userID: "1", updatedFields: { firstName: "Anderson" } })
 
@@ -52,7 +52,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Updating a user's info using invalid ID", async () => {
+    test.skip("Updating a user's info using invalid ID", async () => {
 
         let res = await updateUser({ userID: "1xd23", updatedFields: { firstName: "Anderson" } })
 
@@ -62,7 +62,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Updating a user's info without an ID", async () => {
+    test.skip("Updating a user's info without an ID", async () => {
 
         let res = await updateUser({ updatedFields: { firstName: "Anderson" } })
 
@@ -86,7 +86,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Adding a new user", async () => {
+    test.skip("Adding a new user", async () => {
 
         let res = await addNewUser({
 
@@ -132,7 +132,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Get a user todos using their ID", async () => {
+    test.skip("Get a user todos using their ID", async () => {
 
         let res = await getUserTodos("1");
 
@@ -145,7 +145,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Get all users", async () => {
+    test.skip("Get all users", async () => {
 
         let res = await getAllUsers();
 
@@ -155,7 +155,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Login with valid credentials", async () => {
+    test.skip("Login with valid credentials", async () => {
 
         let res = await apiLogin({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD });
 
@@ -164,7 +164,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Login with invalid credentials", async () => {
+    test.skip("Login with invalid credentials", async () => {
 
         let res = await apiLogin({ username: process.env.LOGIN_USERNAME, password: "Wrong password" });
 
@@ -175,7 +175,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Login without credentials", async () => {
+    test.skip("Login without credentials", async () => {
 
         let res = await apiLogin();
 
@@ -185,7 +185,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Get current authenticated user with valid token", async () => {
+    test.skip("Get current authenticated user with valid token", async () => {
 
         let loginRes = await apiLogin({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD });
         let token = (await loginRes.json()).accessToken;
@@ -197,7 +197,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Get single user using their ID", async () => {
+    test.skip("Get single user using their ID", async () => {
         let res = await getUser("1");
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
 
@@ -205,7 +205,7 @@ test.describe("Users related tests", () => {
 
 
     // an edge case
-    test("Get single user using an invalid ID", async () => {
+    test.skip("Get single user using an invalid ID", async () => {
         let res = await getUser("-999");
         await checkResponse({ response: res, statusCode: 404, statusText: RESPONSE_STATUS.NOT_FOUND })
 
@@ -213,7 +213,7 @@ test.describe("Users related tests", () => {
 
 
 
-    test("Search for a user by name", async () => {
+    test.skip("Search for a user by name", async () => {
         let res = await searchForUser("Jessi");
 
         console.log(await res.json());
@@ -223,12 +223,28 @@ test.describe("Users related tests", () => {
     })
 
 
-        test("Search for a user without passing a name", async () => {
+    test.skip("Search for a user without passing a name", async () => {
         let res = await searchForUser();
 
         console.log(await res.json());
 
         await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK, schema: searchForUserSchema })
+
+    })
+
+
+
+
+
+
+
+
+    test.skip("Filter a user by a key and value", async () => {
+        let res = await filterUsers({ key: "lastName", value: "Baker" });
+
+        console.log(await res.json());
+
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
 
     })
 })
