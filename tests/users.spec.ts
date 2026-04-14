@@ -1,10 +1,11 @@
 import test, { expect } from "playwright/test";
-import { addNewUser, deleteUser, getAllUsers, getUserTodos, updateUser } from "../api/users.api";
+import { addNewUser, deleteUser, getAllUsers, getCurrentAuthenticatedUser, getUserTodos, updateUser } from "../api/users.api";
 import { login, RESPONSE_STATUS } from "../api/auth.api";
 import { checkResponse } from "../assertions/api.assrtion";
 import { loginSchema } from "../schemas/auth.schema";
 
 import { login as apiLogin } from "../api/users.api";
+import process from "process";
 
 test.describe("Users related tests", () => {
 
@@ -181,5 +182,16 @@ test.describe("Users related tests", () => {
         await checkResponse({ response: res, statusCode: 400, statusText: RESPONSE_STATUS.BAD_REQUEST })
     })
 
+
+
+    test("Get current authenticated user with valid token", async () => {
+
+        let loginRes = await apiLogin({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD });
+        let token = (await loginRes.json()).accessToken;
+
+        let res = await getCurrentAuthenticatedUser(token);
+        await checkResponse({ response: res, statusCode: 200, statusText: RESPONSE_STATUS.OK })
+
+    })
 
 })

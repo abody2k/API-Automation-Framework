@@ -59,3 +59,13 @@ export async function login(obj?: { username: string, password: string, expiresI
 
     return await client.post(`/users/login`, { username: obj?.username, password: obj?.password, expiresInMins: obj?.expiresInMins })
 }
+
+
+
+export async function getCurrentAuthenticatedUser(token: string) {
+
+    let client = await ApiClient.createClient()
+
+    return await client.get(`/users/me`, { token })
+
+}
