@@ -1,7 +1,9 @@
 import { ApiClient } from "./client/apiClient";
 
 
-
+/**
+ * Static response status codes and messages to be used in all API calls
+ */
 export enum RESPONSE_STATUS {
 
     BAD_REQUEST = "Bad Request",
