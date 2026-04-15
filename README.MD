@@ -22,13 +22,19 @@ The framework is built to simulate real-world API testing scenarios with clean a
 The project follows a modular and scalable structure:
 
 
-api/ → API client layer (request abstraction)
-tests/ → test suites organized by feature
-utils/ → reusable utilities (logging, helpers)
-schemas/ → response validation (Zod schemas)
-data/ → test data generators and fixtures
-flows/ → multi-step business flows (end-to-end API flows)
-assertions/ → reusable assertion logic
+- api/ → API client layer (request abstraction)
+
+- tests/ → test suites organized by feature
+
+- utils/ → reusable utilities (logging, helpers)
+
+- schemas/ → response validation (Zod schemas)
+
+- data/ → test data generators and fixtures
+
+- flows/ → multi-step business flows (end-to-end API flows)
+
+- assertions/ → reusable assertion logic
 
 
 
