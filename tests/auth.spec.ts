@@ -13,7 +13,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("Login with valid username and password", async ({ }) => {
+  test("Logs in when valid credentials are provided", async ({ }) => {
 
 
     loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
@@ -26,7 +26,7 @@ test.describe("Auth tests", () => {
 
   login_data.forEach((dataItem) => {
 
-    test(`Login with ${dataItem.msg}`, async ({ }) => {
+    test(`Fails to log in with ${dataItem.msg}`, async ({ }) => {
 
       let loginRes = await login({ username: dataItem.username, password: dataItem.password })
       let data = await loginRes.json(); // get data
@@ -43,7 +43,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("Login without username and password", async ({ }) => {
+  test("Fails to log in when credentials are not provided", async ({ }) => {
 
     let loginRes = await login({})
     let data = await loginRes.json()
@@ -60,7 +60,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("get current user using valid login token", async ({ }) => {
+  test("returns current user when a valid token is provided", async ({ }) => {
 
     //Get the data from the API call
     let data = await loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
@@ -81,7 +81,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("get current user without passing a login token", async ({ }) => {
+  test("Fails to return current user when token is not provided", async ({ }) => {
 
     let newReq = await getCurrentUser();
     let newData = await newReq.json()
@@ -102,7 +102,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("Refresh authentication session using a token", async () => {
+  test("Refreshes authentication session when a valid token is provided", async () => {
 
     let loginData = await loginFlow({ username: process.env.LOGIN_USERNAME, password: process.env.PASSWORD })
 
@@ -121,7 +121,7 @@ test.describe("Auth tests", () => {
 
 
 
-  test("Refresh authentication session without using a token", async () => {
+  test("Fails to refresh authentication session when token is not provided", async () => {
 
 
     let refreshResponse = await refreshAuthSession()
@@ -138,7 +138,7 @@ test.describe("Auth tests", () => {
   })
 
 
-  test("Refresh authentication session with an invalid token", async () => {
+  test("Fails to refresh authentication session when an invalid token is provided", async () => {
 
 
     let refreshResponse = await refreshAuthSession("kjnsdkjcnsdjkcndncjnkjsn")
