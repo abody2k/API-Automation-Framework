@@ -15,6 +15,11 @@ export enum RESPONSE_STATUS {
 
 }
 
+
+/**
+ * Static response messages that to be compared to message field returned by
+ * some API calls
+ */
 export enum RESPONSE_MSGS {
     USERNAME_AND_PASS_REQ = "Username and password required",
     INVALID_CRED = "Invalid credentials",
