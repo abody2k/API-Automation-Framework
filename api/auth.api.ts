@@ -51,6 +51,12 @@ export async function login({ username, password, options }: { username?: string
 }
 
 
+
+/**
+ * 
+ * @param token a string token you get from login api or refresh token api
+ * @returns returns all user info
+ */
 export async function getCurrentUser(token?: string) {
 
     const client = await ApiClient.createClient();
