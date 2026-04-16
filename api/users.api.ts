@@ -17,7 +17,11 @@ export async function deleteUser(userID?: string) {
 }
 
 
-
+/**
+ * updates a user given their userID and the fields to be updated in an object
+ * @param param0 
+ * @returns 
+ */
 export async function updateUser({ userID, updatedFields }: { userID?: string, updatedFields?: object }) {
 
     let client = await ApiClient.createClient()
