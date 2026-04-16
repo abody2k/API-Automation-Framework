@@ -66,7 +66,11 @@ export async function getCurrentUser(token?: string) {
 
 
 
-
+/**
+ * refreshes the auth session given a refresh token
+ * @param token 
+ * @returns returns new access token and refresh token if the provided refresh token is valid
+ */
 export async function refreshAuthSession(token?: string) {
 
     const client = await ApiClient.createClient();
