@@ -138,6 +138,11 @@ export async function getUserPosts(userID?: string) {
 }
 
 
+/**
+ * get the carts of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserCarts(userID?: string) {
 
     let client = await ApiClient.createClient()
