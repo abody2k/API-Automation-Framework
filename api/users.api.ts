@@ -114,6 +114,7 @@ export async function searchForUser(userName?: string) {
 }
 
 
+
 export async function filterUsers(options?: { key: string, value: string }) {
 
     let client = await ApiClient.createClient()
@@ -128,7 +129,11 @@ export async function filterUsers(options?: { key: string, value: string }) {
 
 
 
-
+/**
+ * get the posts of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserPosts(userID?: string) {
 
     let client = await ApiClient.createClient()
