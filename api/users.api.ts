@@ -75,7 +75,11 @@ export async function getAllUsers() {
 }
 
 
-
+/**
+ * logs in given username and password in an object.
+ * @param obj 
+ * @returns 
+ */
 export async function login(obj?: { username: string, password: string, expiresInMins?: number }) {
 
 
