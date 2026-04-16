@@ -89,7 +89,11 @@ export async function login(obj?: { username: string, password: string, expiresI
 }
 
 
-
+/**
+ * get info of the currently authenticated user using the provided token.
+ * @param token 
+ * @returns 
+ */
 export async function getCurrentAuthenticatedUser(token: string) {
 
     let client = await ApiClient.createClient()
