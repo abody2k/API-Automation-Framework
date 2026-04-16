@@ -114,7 +114,11 @@ export async function searchForUser(userName?: string) {
 }
 
 
-
+/**
+ * filtering users baned on provided key and value. case sensetive.
+ * @param options 
+ * @returns 
+ */
 export async function filterUsers(options?: { key: string, value: string }) {
 
     let client = await ApiClient.createClient()
