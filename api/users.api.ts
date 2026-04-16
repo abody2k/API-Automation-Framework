@@ -147,7 +147,12 @@ export async function getUserCarts(userID?: string) {
 }
 
 
-
+/**
+ * 
+ * @param sortBy a field like firstName, Lastname. It is case sensetive
+ * @param order 
+ * @returns list of users sorted by the sortBy field in the order specified by order parameter
+ */
 export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc") {
 
     let client = await ApiClient.createClient()
