@@ -161,6 +161,14 @@ export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc")
 
 }
 
+
+/**
+ * Returns a limited number of users after skipping a specified number of users. It also allows selecting specific fields to be returned for each user.
+ * @param limit 
+ * @param skip 
+ * @param select 
+ * @returns 
+ */
 export async function limitAndSkipUsers(limit?: number, skip?: number, select?: (string)[]) {
 
     let client = await ApiClient.createClient()
