@@ -1,7 +1,9 @@
 import { ApiClient } from "./client/apiClient";
 
 
-
+/**
+ * Static response status codes and messages to be used in all API calls
+ */
 export enum RESPONSE_STATUS {
 
     BAD_REQUEST = "Bad Request",
@@ -13,6 +15,11 @@ export enum RESPONSE_STATUS {
 
 }
 
+
+/**
+ * Static response messages that to be compared to message field returned by
+ * some API calls
+ */
 export enum RESPONSE_MSGS {
     USERNAME_AND_PASS_REQ = "Username and password required",
     INVALID_CRED = "Invalid credentials",
@@ -44,6 +51,12 @@ export async function login({ username, password, options }: { username?: string
 }
 
 
+
+/**
+ * 
+ * @param token a string token you get from login api or refresh token api
+ * @returns returns all user info
+ */
 export async function getCurrentUser(token?: string) {
 
     const client = await ApiClient.createClient();
@@ -53,7 +66,11 @@ export async function getCurrentUser(token?: string) {
 
 
 
-
+/**
+ * refreshes the auth session given a refresh token
+ * @param token 
+ * @returns returns new access token and refresh token if the provided refresh token is valid
+ */
 export async function refreshAuthSession(token?: string) {
 
     const client = await ApiClient.createClient();

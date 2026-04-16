@@ -1,5 +1,11 @@
 import { ApiClient } from "./client/apiClient";
 
+
+/**
+ * Deletes a user with the given userID.
+ * @param userID 
+ * @returns returns a message in an object indicating if user is deleted or not
+ */
 export async function deleteUser(userID?: string) {
 
 
@@ -11,7 +17,11 @@ export async function deleteUser(userID?: string) {
 }
 
 
-
+/**
+ * updates a user given their userID and the fields to be updated in an object
+ * @param param0 
+ * @returns 
+ */
 export async function updateUser({ userID, updatedFields }: { userID?: string, updatedFields?: object }) {
 
     let client = await ApiClient.createClient()
@@ -22,6 +32,12 @@ export async function updateUser({ userID, updatedFields }: { userID?: string, u
 
 
 
+/**
+ * Adds a new user with the given user data. It only simulates doing that and does not actually
+ * creates a new user on the server.
+ * @param userData 
+ * @returns the new user info.
+ */
 export async function addNewUser(userData?: object) {
 
     let client = await ApiClient.createClient()
@@ -31,7 +47,11 @@ export async function addNewUser(userData?: object) {
 }
 
 
-
+/**
+ * Returns the todos of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserTodos(userID?: string) {
 
     let client = await ApiClient.createClient()
@@ -42,6 +62,10 @@ export async function getUserTodos(userID?: string) {
 
 
 
+/**
+ * 
+ * @returns all users with their info.
+ */
 export async function getAllUsers() {
 
     let client = await ApiClient.createClient()
@@ -51,7 +75,11 @@ export async function getAllUsers() {
 }
 
 
-
+/**
+ * logs in given username and password in an object.
+ * @param obj 
+ * @returns 
+ */
 export async function login(obj?: { username: string, password: string, expiresInMins?: number }) {
 
 
@@ -61,7 +89,11 @@ export async function login(obj?: { username: string, password: string, expiresI
 }
 
 
-
+/**
+ * get info of the currently authenticated user using the provided token.
+ * @param token 
+ * @returns 
+ */
 export async function getCurrentAuthenticatedUser(token: string) {
 
     let client = await ApiClient.createClient()
@@ -71,7 +103,11 @@ export async function getCurrentAuthenticatedUser(token: string) {
 }
 
 
-
+/**
+ * 
+ * @param userID 
+ * @returns specific user info given their userID.
+ */
 export async function getUser(userID?: string) {
 
     let client = await ApiClient.createClient()
@@ -80,7 +116,11 @@ export async function getUser(userID?: string) {
 
 }
 
-
+/**
+ * searches for a user given their username.
+ * @param userName 
+ * @returns 
+ */
 export async function searchForUser(userName?: string) {
 
     let client = await ApiClient.createClient()
@@ -90,6 +130,11 @@ export async function searchForUser(userName?: string) {
 }
 
 
+/**
+ * filtering users baned on provided key and value. case sensetive.
+ * @param options 
+ * @returns 
+ */
 export async function filterUsers(options?: { key: string, value: string }) {
 
     let client = await ApiClient.createClient()
@@ -104,7 +149,11 @@ export async function filterUsers(options?: { key: string, value: string }) {
 
 
 
-
+/**
+ * get the posts of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserPosts(userID?: string) {
 
     let client = await ApiClient.createClient()
@@ -114,6 +163,11 @@ export async function getUserPosts(userID?: string) {
 }
 
 
+/**
+ * get the carts of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserCarts(userID?: string) {
 
     let client = await ApiClient.createClient()
@@ -123,7 +177,12 @@ export async function getUserCarts(userID?: string) {
 }
 
 
-
+/**
+ * 
+ * @param sortBy a field like firstName, Lastname. It is case sensetive
+ * @param order 
+ * @returns list of users sorted by the sortBy field in the order specified by order parameter
+ */
 export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc") {
 
     let client = await ApiClient.createClient()
@@ -132,6 +191,14 @@ export async function sortAndOrderUsers(sortBy?: string, order?: "asc" | "desc")
 
 }
 
+
+/**
+ * Returns a limited number of users after skipping a specified number of users. It also allows selecting specific fields to be returned for each user.
+ * @param limit 
+ * @param skip 
+ * @param select 
+ * @returns 
+ */
 export async function limitAndSkipUsers(limit?: number, skip?: number, select?: (string)[]) {
 
     let client = await ApiClient.createClient()
