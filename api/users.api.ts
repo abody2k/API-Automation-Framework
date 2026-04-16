@@ -47,7 +47,11 @@ export async function addNewUser(userData?: object) {
 }
 
 
-
+/**
+ * Returns the todos of a user given their userID
+ * @param userID 
+ * @returns 
+ */
 export async function getUserTodos(userID?: string) {
 
     let client = await ApiClient.createClient()
