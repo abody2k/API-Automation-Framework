@@ -112,7 +112,11 @@ export async function getUser(userID?: string) {
 
 }
 
-
+/**
+ * searches for a user given their username.
+ * @param userName 
+ * @returns 
+ */
 export async function searchForUser(userName?: string) {
 
     let client = await ApiClient.createClient()
