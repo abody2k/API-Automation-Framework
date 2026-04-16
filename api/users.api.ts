@@ -99,7 +99,11 @@ export async function getCurrentAuthenticatedUser(token: string) {
 }
 
 
-
+/**
+ * 
+ * @param userID 
+ * @returns specific user info given their userID.
+ */
 export async function getUser(userID?: string) {
 
     let client = await ApiClient.createClient()
