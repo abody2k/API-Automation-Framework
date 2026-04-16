@@ -32,6 +32,12 @@ export async function updateUser({ userID, updatedFields }: { userID?: string, u
 
 
 
+/**
+ * Adds a new user with the given user data. It only simulates doing that and does not actually
+ * creates a new user on the server.
+ * @param userData 
+ * @returns the new user info.
+ */
 export async function addNewUser(userData?: object) {
 
     let client = await ApiClient.createClient()
