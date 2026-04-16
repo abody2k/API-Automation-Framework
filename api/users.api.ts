@@ -1,5 +1,11 @@
 import { ApiClient } from "./client/apiClient";
 
+
+/**
+ * Deletes a user with the given userID.
+ * @param userID 
+ * @returns returns a message in an object indicating if user is deleted or not
+ */
 export async function deleteUser(userID?: string) {
 
 
