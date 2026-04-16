@@ -62,6 +62,10 @@ export async function getUserTodos(userID?: string) {
 
 
 
+/**
+ * 
+ * @returns all users with their info.
+ */
 export async function getAllUsers() {
 
     let client = await ApiClient.createClient()
